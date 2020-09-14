@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
  * @date 2020/9/3 9:40
  */
 public class CanTree {
+    interface Compare{
+        public boolean compare(Object x,Object y);
+    }
     long line = 0;
     int banbenhao = 1;
     public static class TreeNode{
@@ -251,6 +254,9 @@ public class CanTree {
             return;
         }
         if(disValue-dist>0.2){
+            PER_SIZE  = 20 * PER_START_SIZE;
+        }
+        else if(disValue-dist>0.1){
             PER_SIZE  = 10 * PER_START_SIZE;
         }else if(disValue-dist>0.05){
             PER_SIZE = 5*PER_START_SIZE;
@@ -390,12 +396,12 @@ public class CanTree {
         }
 
     }
-    void deleteNoFrequent(TreeNode treeNode){
+    void deleteNoFrequent(TreeNode treeNode,Compare compare){
         if(treeNode==null) {
             Iterator<TreeNode> iterator1 = roots.values().iterator();
             while(iterator1.hasNext()){
                 TreeNode node = iterator1.next();
-                if(node.count<=number/5){
+                if(compare.compare(node.count,number)){
                     deleteSubTree(node);
                     iterator1.remove();
                     //删除该子树
@@ -403,12 +409,12 @@ public class CanTree {
                     Iterator<TreeNode> iterator = node.sonMap.values().iterator();
                     while (iterator.hasNext()){
                         TreeNode treeNode1 = iterator.next();
-                        if(treeNode1.count<=number/5){
+                        if(compare.compare(treeNode1.count,number)){
                             //删除该子树
                             deleteSubTree(treeNode1);
                             iterator.remove();
                         }else{
-                            deleteNoFrequent(treeNode1);
+                            deleteNoFrequent(treeNode1,compare);
                         }
                     }
                 }
@@ -417,12 +423,12 @@ public class CanTree {
             Iterator<TreeNode> iterator = treeNode.sonMap.values().iterator();
             while (iterator.hasNext()){
                 TreeNode treeNode1 = iterator.next();
-                if(treeNode1.count<=number/5){
+                if(compare.compare(treeNode1.count,number)){
                     //删除该子树
                     deleteSubTree(treeNode1);
                     iterator.remove();
                 }else{
-                    deleteNoFrequent(treeNode1);
+                    deleteNoFrequent(treeNode1,compare);
                 }
             }
         }
@@ -433,11 +439,31 @@ public class CanTree {
         List<CanTree.FIM> fims = doFIM(this, null);
         t = System.currentTimeMillis()-t;
         System.out.println(line+":-------------搜索频繁项集成功------------- 耗时:"+t);
-        if(t>10000){
+        if(t>100000){
             //删除不频繁项集
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
-            deleteNoFrequent(null);
+            deleteNoFrequent(null,(x,y)->{
+                return  (int) x<(int) y;
+            });
+            System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
+        }
+        else if(t>50000){
+            //删除不频繁项集
+            long t1 = System.currentTimeMillis();
+            System.out.println("---------------删除不频繁项----------------");
+            deleteNoFrequent(null,(x,y)->{
+                return  (int) x<(int) y/4;
+            });
+            System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
+        }
+        else if(t>10000){
+            //删除不频繁项集
+            long t1 = System.currentTimeMillis();
+            System.out.println("---------------删除不频繁项----------------");
+            deleteNoFrequent(null,(x,y)->{
+                return  (int) x<(int) y/4;
+            });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
         }
         publishIM = fims;
@@ -483,11 +509,31 @@ public class CanTree {
         List<FIM> fims = doFIM(this, null);
         t = (System.currentTimeMillis()-t);
         System.out.println(line+":-------------growth搜索频繁项集成功------------- 耗时:"+t);
-        if(t>10000){
+        if(t>100000){
             //删除不频繁项集
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
-            deleteNoFrequent(null);
+            deleteNoFrequent(null,(x,y)->{
+                return  (int) x<(int) y;
+            });
+            System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
+        }
+        else if(t>50000){
+            //删除不频繁项集
+            long t1 = System.currentTimeMillis();
+            System.out.println("---------------删除不频繁项----------------");
+            deleteNoFrequent(null,(x,y)->{
+                return  (int) x<(int) y/4;
+            });
+            System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
+        }
+        else if(t>10000){
+            //删除不频繁项集
+            long t1 = System.currentTimeMillis();
+            System.out.println("---------------删除不频繁项----------------");
+            deleteNoFrequent(null,(x,y)->{
+                return  (int) x<(int) y/4;
+            });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
         }
         double v = calDis(fims, this.publishIM);
@@ -764,10 +810,28 @@ public class CanTree {
         double ret = x1*0.85+x2*0.15;
         t1 = System.currentTimeMillis()-t1;
         System.out.println(line+ ":---------------计算距离--------耗时"+(t1)+" 距离为"+ret);
-        if(t1>10000){
+        if(t1>100000){
             long t2 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
-            deleteNoFrequent(null);
+            deleteNoFrequent(null,(x,y)->{
+                return (int) x< (int) y;
+            });
+            System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t2));
+        }
+        else if(t1>50000){
+            long t2 = System.currentTimeMillis();
+            System.out.println("---------------删除不频繁项----------------");
+            deleteNoFrequent(null,(x,y)->{
+                return (int) x< (int) y/2;
+            });
+            System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t2));
+        }
+        else if(t1>10000){
+            long t2 = System.currentTimeMillis();
+            System.out.println("---------------删除不频繁项----------------");
+            deleteNoFrequent(null,(x,y)->{
+                return (int) x< (int) y/4;
+            });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t2));
         }
         return ret;

@@ -2,6 +2,7 @@ CanTree\CanTree$TreeNode.class
 InputHandle\InputHandle$NowRun.class
 TransactionTruncation\TransationTuncUtils.class
 CanTree\CanTree$CalDisRunner.class
+CanTree\CanTree$Compare.class
 CanTree\CanTree$Cache.class
 CanTree\CanTree.class
 CanTree\CanTree$TreeStuct.class
