@@ -439,16 +439,16 @@ public class CanTree {
         List<CanTree.FIM> fims = doFIM(this, null);
         t = System.currentTimeMillis()-t;
         System.out.println(line+":-------------搜索频繁项集成功------------- 耗时:"+t);
-        if(t>100000){
+        if(t>50000){
             //删除不频繁项集
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
             deleteNoFrequent(null,(x,y)->{
-                return  (int) x<(int) y;
+                return  (int) x<=(int) y;
             });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
         }
-        else if(t>50000){
+        else if(t>20000){
             //删除不频繁项集
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
@@ -583,7 +583,8 @@ public class CanTree {
         if(treeNode==null) {
             Iterator<TreeNode> iterator1 = roots.values().iterator();
             while(iterator1.hasNext()){
-                TreeNode node = iterator1.next(); if(node.windowsFlag == wflag||node.count==0){
+                TreeNode node = iterator1.next();
+                if(node.windowsFlag == wflag||node.count==0){
                     deleteSubTree(node);
                     iterator1.remove();
                     //删除该子树
@@ -771,7 +772,6 @@ public class CanTree {
             double y = 0;
             int i = start;
             for (; i < start+step&&i<list1.size(); i++) {
-
                 FIM x = list1.get(i);
                 for (FIM fim : list2) {
                     Cache cache = new Cache(x,fim);
@@ -780,7 +780,7 @@ public class CanTree {
                 }
             }
            // System.out.println(Thread.currentThread().getName()+"领取了任务"+start+"-"+i+"的计算任务");
-            ret.accumulate(y);
+            ret.accumulate(y/(double) (step*list2.size()));
             countDownLatch.countDown();
         }
     }
@@ -801,15 +801,14 @@ public class CanTree {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        double x1 = accumulator.doubleValue()/(fims1.size()* fims2.size());
-
+        double x1 = accumulator.doubleValue()/(num);
         double max = Math.max(fims1.size(), fims2.size());
         double min = Math.min(fims1.size(), fims2.size());
         double x2 = (max-min)/(max+min);
         double ret = x1*0.85+x2*0.15;
         t1 = System.currentTimeMillis()-t1;
         System.out.println(line+ ":---------------计算距离--------耗时"+(t1)+" 距离为"+ret);
-        if(t1>100000){
+        if(t1>50000){
             long t2 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
             deleteNoFrequent(null,(x,y)->{
@@ -817,7 +816,7 @@ public class CanTree {
             });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t2));
         }
-        else if(t1>50000){
+        else if(t1>20000){
             long t2 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
             deleteNoFrequent(null,(x,y)->{
