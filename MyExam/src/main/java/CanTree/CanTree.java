@@ -24,7 +24,7 @@ public class CanTree {
         public boolean compare(Object x,Object y);
     }
     long line = 0;
-    int banbenhao = 1;
+    public int banbenhao = 1;
     public static class TreeNode{
         String val;
         int windowsFlag = 1;
@@ -130,14 +130,14 @@ public class CanTree {
     List<FIM> publishIM = new LinkedList<CanTree.FIM>();
     Map<Integer,List<FIM>> windowsMap = new HashMap<>();
     public Map<Integer,Set<String>> ttMap = new HashMap<>();
-    Integer number = 5;
+    public Integer number = 5;
     public int lopt;
     public double disValue = 0.9;
     public int WFlag = 1;
     List<Integer> startList = new LinkedList<>();
     int count = 0;
-    int W = 5;
-    static int PER_START_SIZE = 500;
+    public int W = 5;
+    public static int PER_START_SIZE = 500;
     static int PER_SIZE = 500;
     double dist = disValue;
     double laplaceMechanismCount(long realCountResult, double epsilon) {
@@ -453,7 +453,7 @@ public class CanTree {
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
             deleteNoFrequent(null,(x,y)->{
-                return  (int) x<(int) y/4;
+                return  (int) x<(int) y/2;
             });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
         }
@@ -468,7 +468,7 @@ public class CanTree {
         }
         publishIM = fims;
         try {
-            final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("D:\\Output"+banbenhao+".txt",true));
+            final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("F:\\bxh\\output"+banbenhao+".txt",true));
 
             bufferedWriter.write("----------------------------------------\n");
             for (int i = 0; i < fims.size(); i++) {
@@ -523,7 +523,7 @@ public class CanTree {
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
             deleteNoFrequent(null,(x,y)->{
-                return  (int) x<(int) y/4;
+                return  (int) x<(int) y/2;
             });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
         }
@@ -544,7 +544,6 @@ public class CanTree {
             return true;
          }
          return false;
-
     }
     //
     public void slideWindow(){

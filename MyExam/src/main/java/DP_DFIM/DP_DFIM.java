@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class DP_DFIM {
      int count = 0;
-     static int START_SIZE = 100;
-    int W = 5;
+    public static int START_SIZE = 100;
+    public int W = 5;
     int lopt = 0;
     List<Integer> startList = new LinkedList<>();
     public CanTree canTree;
