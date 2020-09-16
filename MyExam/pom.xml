@@ -36,7 +36,7 @@
                 <configuration>
                     <fork>true</fork>
                     <executable>
-                        C:\Program Files\Java\jdk1.8.0_121\bin\javac.exe
+                        C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
                     </executable>
                     <target>1.8</target>
                     <source>1.8</source>

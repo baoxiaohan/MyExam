@@ -119,7 +119,7 @@ public class CanTree {
     ConcurrentHashMap<Cache,Double> DisCache = new ConcurrentHashMap<>();
     Map<String,TreeNode> roots = new HashMap();
     int coreSize =  Runtime.getRuntime().availableProcessors()+1;
-    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
+    public ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
             coreSize,
             coreSize*2,
             10,
@@ -509,7 +509,7 @@ public class CanTree {
         List<FIM> fims = doFIM(this, null);
         t = (System.currentTimeMillis()-t);
         System.out.println(line+":-------------growth搜索频繁项集成功------------- 耗时:"+t);
-        if(t>100000){
+        if(t>50000){
             //删除不频繁项集
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");
@@ -518,7 +518,7 @@ public class CanTree {
             });
             System.out.println("---------------删除不频繁项-------------耗时"+(System.currentTimeMillis()-t1));
         }
-        else if(t>50000){
+        else if(t>20000){
             //删除不频繁项集
             long t1 = System.currentTimeMillis();
             System.out.println("---------------删除不频繁项----------------");

@@ -5,10 +5,7 @@ package InputHandle;
 
 import DP_DFIM.DP_DFIM;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -42,12 +39,17 @@ public class InputHandle {
                             Integer.valueOf(args[4]), Integer.valueOf(args[5]))
                             : args.length == 4 ? new DP_DFIM(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3]))
                             : new DP_DFIM(10, 5, mode);
-                    System.out.println("支持度："+dp_dfim.canTree.number+" W："+dp_dfim.canTree.W+
-                    " disValue:"+dp_dfim.canTree.disValue+" 版本号"+dp_dfim.canTree.banbenhao+" PER_START_SIZE:"+
-                    dp_dfim.canTree.PER_START_SIZE);
+                    String ss = "支持度："+dp_dfim.canTree.number+" W："+dp_dfim.canTree.W+
+                            " disValue:"+dp_dfim.canTree.disValue+" 版本号"+dp_dfim.canTree.banbenhao+" PER_START_SIZE:"+
+                            dp_dfim.canTree.PER_START_SIZE;
+                    System.out.println(ss);
+                    final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("F:\\bxh\\output"+dp_dfim.canTree.banbenhao+".txt",true));
+                    bufferedWriter.write(ss+"\n");
+                    bufferedWriter.close();
                         for (String s1 : list) {
                             dp_dfim.soluton(s1);
                         }
+                    dp_dfim.canTree.threadPoolExecutor.shutdown();
                     countDownLatch.countDown();
                 } else {
                     DP_DFIM dp_dfim = args.length == 6 ? new DP_DFIM(Integer.valueOf(args[1]), Integer.valueOf(args[2]),
@@ -55,15 +57,19 @@ public class InputHandle {
                             Integer.valueOf(args[4]), Integer.valueOf(args[5])+1)
                             : args.length == 4 ? new DP_DFIM(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3])+1)
                             : new DP_DFIM(10, 5, mode);
-                    System.out.println("支持度："+dp_dfim.canTree.number+" W："+dp_dfim.canTree.W+
+                    String ss = "支持度："+dp_dfim.canTree.number+" W："+dp_dfim.canTree.W+
                             " disValue:"+dp_dfim.canTree.disValue+" 版本号"+dp_dfim.canTree.banbenhao+" PER_START_SIZE:"+
-                            dp_dfim.canTree.PER_START_SIZE);
+                            dp_dfim.canTree.PER_START_SIZE;
+                    System.out.println(ss);
+                    final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("F:\\bxh\\output"+dp_dfim.canTree.banbenhao+".txt",true));
+                    bufferedWriter.write(ss+"\n");
+                    bufferedWriter.close();
                     for (String s1 : list) {
                         dp_dfim.soluton(s1);
                     }
+                    dp_dfim.canTree.threadPoolExecutor.shutdown();
                     countDownLatch.countDown();
                 }
-
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -149,6 +155,8 @@ public class InputHandle {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("程序已经运行完毕");
+
     }
 
 }
