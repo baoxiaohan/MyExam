@@ -479,7 +479,7 @@ public class CanTree {
                 }
                 //隐私版本
                 if(banbenhao%2==0){
-                    x.count = (int) Math.floor(laplaceMechanismCount(x.count,0.5));
+                    x.count = (int) Math.floor(laplaceMechanismCount(x.count,1));
                     if(x.count<number){
                         x.count = number;
                     }

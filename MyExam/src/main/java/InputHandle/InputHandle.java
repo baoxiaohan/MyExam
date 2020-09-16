@@ -38,7 +38,7 @@ public class InputHandle {
                             Double.valueOf(args[3]),
                             Integer.valueOf(args[4]), Integer.valueOf(args[5]))
                             : args.length == 4 ? new DP_DFIM(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3]))
-                            : new DP_DFIM(10, 5, mode);
+                            : new DP_DFIM(10, 10, mode);
                     String ss = "支持度："+dp_dfim.canTree.number+" W："+dp_dfim.canTree.W+
                             " disValue:"+dp_dfim.canTree.disValue+" 版本号"+dp_dfim.canTree.banbenhao+" PER_START_SIZE:"+
                             dp_dfim.canTree.PER_START_SIZE;
@@ -56,7 +56,7 @@ public class InputHandle {
                             Double.valueOf(args[3]),
                             Integer.valueOf(args[4]), Integer.valueOf(args[5])+1)
                             : args.length == 4 ? new DP_DFIM(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3])+1)
-                            : new DP_DFIM(10, 5, mode);
+                            : new DP_DFIM(10, 10, mode);
                     String ss = "支持度："+dp_dfim.canTree.number+" W："+dp_dfim.canTree.W+
                             " disValue:"+dp_dfim.canTree.disValue+" 版本号"+dp_dfim.canTree.banbenhao+" PER_START_SIZE:"+
                             dp_dfim.canTree.PER_START_SIZE;
@@ -112,7 +112,7 @@ public class InputHandle {
         }
         String []arg = {"1","10","10","0.85","1000","1"};
         CountDownLatch countDownLatch = new CountDownLatch(2);
-        arg[2] = "15";
+        arg[1] = "15";
         arg[3] = "0.85";
         countDownLatch = new CountDownLatch(2);
         new Thread(new NowRun(arg,inputStr,1,countDownLatch)).start();
@@ -122,7 +122,7 @@ public class InputHandle {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        arg[2] = "15";
+        arg[1] = "15";
         arg[5] = "3";
         arg[3] = "0.84";
         countDownLatch = new CountDownLatch(2);
@@ -133,7 +133,7 @@ public class InputHandle {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        arg[2] = "20";
+        arg[1] = "20";
         arg[5] = "5";
         arg[3] = "0.83";
         countDownLatch = new CountDownLatch(2);
@@ -144,7 +144,7 @@ public class InputHandle {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        arg[2] = "25";
+        arg[1] = "25";
         arg[5] = "7";
         arg[3] = "0.80";
         countDownLatch = new CountDownLatch(2);
@@ -155,8 +155,40 @@ public class InputHandle {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        arg[1] = "30";
+        arg[5] = "9";
+        arg[3] = "0.75";
+        countDownLatch = new CountDownLatch(2);
+        new Thread(new NowRun(arg,inputStr,7,countDownLatch)).start();
+        new Thread(new NowRun(arg,inputStr,8,countDownLatch)).start();
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        arg[1] = "35";
+        arg[5] = "11";
+        arg[3] = "0.75";
+        countDownLatch = new CountDownLatch(2);
+        new Thread(new NowRun(arg,inputStr,7,countDownLatch)).start();
+        new Thread(new NowRun(arg,inputStr,8,countDownLatch)).start();
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        arg[1] = "40";
+        arg[5] = "13";
+        arg[3] = "0.75";
+        countDownLatch = new CountDownLatch(2);
+        new Thread(new NowRun(arg,inputStr,7,countDownLatch)).start();
+        new Thread(new NowRun(arg,inputStr,8,countDownLatch)).start();
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("程序已经运行完毕");
-
     }
 
 }
